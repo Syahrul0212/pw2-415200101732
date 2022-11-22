@@ -38,6 +38,8 @@ $routes->set404Override();
 $routes->get('/', 'Home::index');
 $routes->get('/room', 'Home::room');
 
+$routes->get('/', 'Auth::login');
+
 //param get & post
 $routes->get('/post_request', 'Form::post_request');
 $routes->post('/post_response', 'Form::post_response');
@@ -61,7 +63,7 @@ $routes->post('/provinsi/(:segment)', 'Provinsi::update_save/$1');
 $routes->get('/provinsi/delete/(:segment)', 'Provinsi::delete/$1');
 
 //crud 1-Many table
-$routes->get('/buku', 'Buku::list');
+$routes->get('/buku', 'Buku::list', ['filter' => 'authGuard']);
 $routes->get('/buku/insert', 'Buku::insert');
 $routes->post('/buku/insert', 'Buku::insert_save');
 $routes->get('/buku/(:segment)', 'Buku::update/$1');
@@ -90,6 +92,10 @@ $routes->get('/peminjaman_buku/delete/(:segment)', 'PeminjamanBuku::delete/$1');
 
 $routes->get('/chart/pie', 'Chart::pie');
 $routes->get('/chart/line', 'Chart::line');
+
+$routes->get('/login', 'Auth::login');
+$routes->post('/login', 'Auth::login_submit');
+$routes->get('/logout', 'Auth::logout');
 
 /*
  * --------------------------------------------------------------------
